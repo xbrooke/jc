@@ -45,15 +45,15 @@
         }
 
         .progress-card {
-            width: 320px; /* 调整卡片宽度 */
+            width: 280px; /* 调整卡片宽度 */
             max-width: 90%; /* 最大宽度 */
             background-color: #ffffff; /* 卡片背景色 */
-            padding: 20px;
+            padding: 15px; /* 增加内边距 */
             border-radius: 12px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
             position: fixed;
             bottom: 20px; /* 悬浮位置 */
-            right: 20px; /* 悬浮位置 */
+            right: 20px; /* 右下角位置 */
             transition: all 0.3s ease;
             z-index: 1000;
             border: 1px solid #e0e0e0; /* 边框 */
@@ -63,9 +63,9 @@
         .progress-bar {
             width: 100%;
             background-color: #e0e0e0;
-            height: 10px; /* 调整进度条高度 */
+            height: 8px; /* 调整进度条高度 */
             border-radius: 8px;
-            margin: 15px 0; /* 调整进度条的上下间距 */
+            margin: 10px 0; /* 调整进度条的上下间距 */
         }
 
         .progress-bar-inner {
@@ -84,7 +84,7 @@
         }
 
         button {
-            padding: 12px 20px;
+            padding: 10px; /* 调整按钮内边距 */
             background-color: #007aff;
             color: white;
             border: none;
@@ -92,9 +92,9 @@
             cursor: pointer;
             display: block;
             width: 100%;
-            margin: 10px 0; /* 调整间距 */
+            margin: 5px 0; /* 调整间距 */
             transition: background-color 0.3s, transform 0.1s ease;
-            font-size: 1.2rem; /* 增大字体 */
+            font-size: 1rem; /* 调整字体大小 */
             box-shadow: 0 2px 10px rgba(0, 122, 255, 0.3); /* 按钮阴影 */
         }
 
@@ -107,26 +107,53 @@
         }
 
         .install-steps {
-            margin: 10px 0;
+            margin: 5px 0;
             line-height: 1.5;
-            font-size: 0.9rem; /* 调整字体大小 */
+            font-size: 0.5rem; /* 调整当前步骤文字大小 */
         }
 
+        /* 调整标题文字大小 */
+        .step-title {
+            font-size: 1rem; /* 设置步骤标题的字体大小 */
+        }
+
+        /* 手机端样式调整 */
         @media (max-width: 768px) {
+            .start-options {
+                padding: 10px; /* 调整内边距 */
+            }
+
             .progress-card {
-                width: calc(100% - 40px); /* 移动端宽度 */
-                left: 20px; /* 适配全宽 */
-                right: 20px; /* 适配全宽 */
+                width: 90%; /* 移动端宽度 */
+                padding: 10px; /* 增加内边距 */
+                height: auto; /* 自动高度 */
+                left: 50%; /* 居中 */
+                transform: translateX(-50%); /* 居中 */
+            }
+
+            iframe {
+                height: calc(100% - 150px); /* 保证iframe不被遮挡 */
+            }
+
+            .install-steps {
+                display: none; /* 移动端不显示步骤内容 */
+            }
+
+            .button-container {
+                display: flex; /* 使用 flexbox 布局 */
+                justify-content: space-between; /* 按钮两端对齐 */
             }
 
             button {
-                font-size: 1rem; /* 移动端字体大小调整 */
+                width: 48%; /* 按钮占卡片宽度的一半 */
+                font-size: 0.9rem; /* 移动端字体大小调整 */
+                padding: 8px 0; /* 移动端按钮内边距调整 */
             }
         }
 
         @media (min-width: 769px) {
             .progress-card {
-                width: 320px; /* 电脑端宽度 */
+                width: 280px; /* 电脑端宽度 */
                 right: 20px; /* 悬浮位置 */
             }
         }
@@ -148,7 +175,7 @@
 
     <!-- 学习进度卡片 -->
     <div class="progress-card" id="progressCard">
-        <h2 id="stepTitle" style="font-size: 1.5rem; color: #007aff; margin-bottom: 15px;">当前步骤: 第1步 - OSN 安装设置</h2>
+        <h2 id="stepTitle" class="step-title" style="color: #007aff; margin-bottom: 10px;">当前步骤: 第1步 - OSN 安装设置</h2>
         <div class="progress-bar">
             <div class="progress-bar-inner" id="progressBar"></div>
         </div>
@@ -158,8 +185,8 @@
         <div class="button-container">
             <button id="prevStep" style="display:none;">⬅️ 上一步</button>
             <button id="nextStep">下一步 ➡️</button>
-            <button id="appStoreBtn" style="display:none;" onclick="window.location.href='http://appstore.xbrooke.cn'">🛒 Web应用商店</button>
         </div>
+        <button id="appStoreBtn" style="display:none;" onclick="window.location.href='http://appstore.xbrooke.cn'">🛒 Web应用商店</button>
     </div>
 </div>
 
@@ -194,24 +221,23 @@
     // 更新卡片内容
     function updateCardContent(step) {
         stepTitle.textContent = `当前步骤: 第${step}步 - ${steps[step - 1].title}`;
-        iframe.src = steps[step - 1].url;
-        installSteps.innerHTML = steps[step - 1].content; // 更新步骤内容
+        iframe.src = steps[step - 1].url; // 更新 iframe 地址
+        installSteps.innerHTML = `<p>${steps[step - 1].content}</p>`; // 更新步骤内容
 
-        // 更新最后一步按钮文本和功能
+        // 更新按钮文本
         if (step === steps.length) {
-            nextStepBtn.textContent = "💭加入群聊 "; // 修改按钮文本
-            nextStepBtn.onclick = () => { 
-                window.location.href = 'https://wechat.xbrooke.cn'; // 设置跳转链接
-            }; 
-            appStoreBtn.style.display = "block"; // 显示应用商店按钮
+            nextStepBtn.textContent = "完成"; // 最后一步的按钮文本
         } else {
-            nextStepBtn.textContent = "下一步 ➡️"; // 恢复按钮文本
-            nextStepBtn.onclick = () => {
-                currentStep++;
-                updateCardContent(currentStep);
-                updateProgressBar(currentStep);
-                prevStepBtn.style.display = currentStep > 1 ? "block" : "none"; // 控制上一步按钮显示
-            };
+            nextStepBtn.textContent = "下一步 ➡️";
+        }
+
+        // 显示或隐藏按钮
+        if (step === steps.length) {
+            nextStepBtn.style.display = "none"; // 隐藏下一步按钮
+            appStoreBtn.style.display = "block"; // 显示“应用商店”按钮
+        } else {
+            nextStepBtn.style.display = "block"; // 显示下一步按钮
+            appStoreBtn.style.display = "none"; // 隐藏“应用商店”按钮
         }
 
         prevStepBtn.style.display = step > 1 ? "block" : "none"; // 控制上一步按钮显示
@@ -226,13 +252,23 @@
         updateProgressBar(currentStep);
     };
 
-    // 显示进度卡片
-    prevStepBtn.onclick = () => {
-        currentStep--;
-        updateCardContent(currentStep);
-        updateProgressBar(currentStep);
-        prevStepBtn.style.display = currentStep > 1 ? "block" : "none"; // 控制上一步按钮显示
-    };
+    // 点击上一步
+    prevStepBtn.addEventListener("click", () => {
+        if (currentStep > 1) {
+            currentStep--;
+            updateCardContent(currentStep);
+            updateProgressBar(currentStep);
+        }
+    });
+
+    // 点击下一步
+    nextStepBtn.addEventListener("click", () => {
+        if (currentStep < steps.length) {
+            currentStep++;
+            updateCardContent(currentStep);
+            updateProgressBar(currentStep);
+        }
+    });
 
     // 初始化显示
     window.onload = () => {
