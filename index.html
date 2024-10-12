@@ -31,41 +31,41 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100%; /* 占满全屏 */
-            background: rgba(0, 0, 0, 0.5); /* 黑色半透明 */
-            backdrop-filter: blur(10px); /* 模糊效果 */
-            padding: 20px; /* 添加内边距 */
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 20px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .left-section {
             flex: 1;
             height: 100%;
-            display: none; /* 初始隐藏 */
+            display: none;
         }
 
         .progress-card {
-            width: 280px; /* 调整卡片宽度 */
-            max-width: 90%; /* 最大宽度 */
-            background-color: #ffffff; /* 卡片背景色 */
-            padding: 15px; /* 增加内边距 */
+            width: 280px;
+            max-width: 90%;
+            background-color: #ffffff;
+            padding: 15px;
             border-radius: 12px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
             position: fixed;
-            bottom: 20px; /* 悬浮位置 */
-            right: 20px; /* 右下角位置 */
+            bottom: 20px;
+            right: 20px;
             transition: all 0.3s ease;
             z-index: 1000;
-            border: 1px solid #e0e0e0; /* 边框 */
-            display: none; /* 初始隐藏 */
+            border: 1px solid #e0e0e0;
+            display: none;
         }
 
         .progress-bar {
             width: 100%;
             background-color: #e0e0e0;
-            height: 8px; /* 调整进度条高度 */
+            height: 8px;
             border-radius: 8px;
-            margin: 10px 0; /* 调整进度条的上下间距 */
+            margin: 10px 0;
         }
 
         .progress-bar-inner {
@@ -84,7 +84,7 @@
         }
 
         button {
-            padding: 10px; /* 调整按钮内边距 */
+            padding: 10px;
             background-color: #007aff;
             color: white;
             border: none;
@@ -92,10 +92,10 @@
             cursor: pointer;
             display: block;
             width: 100%;
-            margin: 5px 0; /* 调整间距 */
+            margin: 5px 0;
             transition: background-color 0.3s, transform 0.1s ease;
-            font-size: 1rem; /* 调整字体大小 */
-            box-shadow: 0 2px 10px rgba(0, 122, 255, 0.3); /* 按钮阴影 */
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 122, 255, 0.3);
         }
 
         button:hover {
@@ -109,52 +109,58 @@
         .install-steps {
             margin: 5px 0;
             line-height: 1.5;
-            font-size: 0.5rem; /* 调整当前步骤文字大小 */
+            font-size: 0.5rem;
         }
 
-        /* 调整标题文字大小 */
         .step-title {
-            font-size: 1rem; /* 设置步骤标题的字体大小 */
+            font-size: 1rem;
         }
 
-        /* 手机端样式调整 */
         @media (max-width: 768px) {
             .start-options {
-                padding: 10px; /* 调整内边距 */
+                padding: 10px;
             }
 
             .progress-card {
-                width: 90%; /* 移动端宽度 */
-                padding: 10px; /* 增加内边距 */
-                height: auto; /* 自动高度 */
-                left: 50%; /* 居中 */
-                transform: translateX(-50%); /* 居中 */
+                width: 90%;
+                padding: 10px;
+                height: auto;
+                left: 50%;
+                transform: translateX(-50%);
             }
 
             iframe {
-                height: calc(100% - 150px); /* 保证iframe不被遮挡 */
+                height: calc(100% - 150px);
             }
 
             .install-steps {
-                display: none; /* 移动端不显示步骤内容 */
+                display: none;
             }
 
             .button-container {
-                display: flex; /* 使用 flexbox 布局 */
-                justify-content: space-between; /* 按钮两端对齐 */
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
             }
 
             button {
-                width: 48%; /* 按钮占卡片宽度的一半 */
-                font-size: 0.9rem; /* 移动端字体大小调整 */
-                padding: 8px 0; /* 移动端按钮内边距调整 */
+                width: 48%;
+                font-size: 0.9rem;
+                padding: 8px 0;
+            }
+
+            #addWechatBtn {
+                width: 48%;
+                display: none;
+                font-size: 0.9rem;
+                padding: 8px 0;
             }
         }
 
         @media (min-width: 769px) {
             .progress-card {
-                width: 280px; /* 电脑端宽度 */
-                right: 20px; /* 悬浮位置 */
+                width: 280px;
+                right: 20px;
             }
         }
     </style>
@@ -162,18 +168,15 @@
 <body>
 
 <div class="container">
-    <!-- 新手必读/老手跳过 -->
     <div class="start-options" id="startOptions">
         <button id="newUser">👶 新手必读</button>
         <button id="skipUser" onclick="window.location.href='http://appstore.xbrooke.cn/'">🚀 老手跳过</button>
     </div>
 
-    <!-- 左侧教程内容 -->
     <div class="left-section" id="leftSection">
         <iframe id="tutorialContent" src="" title="教程内容"></iframe>
     </div>
 
-    <!-- 学习进度卡片 -->
     <div class="progress-card" id="progressCard">
         <h2 id="stepTitle" class="step-title" style="color: #007aff; margin-bottom: 10px;">当前步骤: 第1步 - OSN 安装设置</h2>
         <div class="progress-bar">
@@ -207,10 +210,18 @@
 
     // 步骤数组
     const steps = [
-        { title: "OSN 安装设置", url: "https://hblog.xbrooke.cn/p/22189", content: " 步骤 1: 完成 OSN 的安装与设置。" },
-        { title: "应用商店使用教程", url: "https://hblog.xbrooke.cn/p/60576", content: " 步骤 2: 掌握应用商店的使用方法。" },
-        { title: "OSN 常见问题 ", url: "https://hblog.xbrooke.cn/p/da7", content: " 步骤 3: 了解常见问题的解决方案。" }
+        { title: "OSN 安装设置", url: "https://hblog.xbrooke.cn/p/22189", content: "步骤 1: 完成 OSN 的安装与设置。" },
+        { title: "应用商店使用教程", url: "https://hblog.xbrooke.cn/p/60576", content: "步骤 2: 掌握应用商店的使用方法。" },
+        { title: "OSN 常见问题", url: "https://hblog.xbrooke.cn/p/da7", content: "步骤 3: 了解常见问题的解决方案。" }
     ];
+
+    // 创建并添加“添加微信”按钮
+    const addWechatBtn = document.createElement("button");
+    addWechatBtn.textContent = "添加微信";
+    addWechatBtn.id = "addWechatBtn";
+    addWechatBtn.style.display = "none";
+    addWechatBtn.onclick = () => window.location.href = "https://wechat.xbrooke.cn";
+    document.querySelector(".button-container").appendChild(addWechatBtn);
 
     // 更新进度条
     function updateProgressBar(step) {
@@ -221,26 +232,20 @@
     // 更新卡片内容
     function updateCardContent(step) {
         stepTitle.textContent = `当前步骤: 第${step}步 - ${steps[step - 1].title}`;
-        iframe.src = steps[step - 1].url; // 更新 iframe 地址
-        installSteps.innerHTML = `<p>${steps[step - 1].content}</p>`; // 更新步骤内容
+        iframe.src = steps[step - 1].url;
+        installSteps.innerHTML = `<p>${steps[step - 1].content}</p>`;
 
-        // 更新按钮文本
-        if (step === steps.length) {
-            nextStepBtn.textContent = "完成"; // 最后一步的按钮文本
+        nextStepBtn.textContent = step === steps.length ? "完成" : "下一步 ➡️";
+        nextStepBtn.style.display = step === steps.length ? "none" : "block";
+        appStoreBtn.style.display = step === steps.length ? "block" : "none";
+        prevStepBtn.style.display = step > 1 ? "block" : "none";
+
+        // 在第三步时显示“添加微信”按钮
+        if (step === 3) {
+            addWechatBtn.style.display = "block";
         } else {
-            nextStepBtn.textContent = "下一步 ➡️";
+            addWechatBtn.style.display = "none";
         }
-
-        // 显示或隐藏按钮
-        if (step === steps.length) {
-            nextStepBtn.style.display = "none"; // 隐藏下一步按钮
-            appStoreBtn.style.display = "block"; // 显示“应用商店”按钮
-        } else {
-            nextStepBtn.style.display = "block"; // 显示下一步按钮
-            appStoreBtn.style.display = "none"; // 隐藏“应用商店”按钮
-        }
-
-        prevStepBtn.style.display = step > 1 ? "block" : "none"; // 控制上一步按钮显示
     }
 
     // 监听新手必读按钮
@@ -252,29 +257,23 @@
         updateProgressBar(currentStep);
     };
 
-    // 点击上一步
-    prevStepBtn.addEventListener("click", () => {
-        if (currentStep > 1) {
-            currentStep--;
-            updateCardContent(currentStep);
-            updateProgressBar(currentStep);
-        }
-    });
-
-    // 点击下一步
-    nextStepBtn.addEventListener("click", () => {
+    // 监听下一步按钮
+    nextStepBtn.onclick = () => {
         if (currentStep < steps.length) {
             currentStep++;
             updateCardContent(currentStep);
             updateProgressBar(currentStep);
         }
-    });
+    };
 
-    // 初始化显示
-    window.onload = () => {
-        progressCard.style.display = "none"; // 默认隐藏进度卡片
+    // 监听上一步按钮
+    prevStepBtn.onclick = () => {
+        if (currentStep > 1) {
+            currentStep--;
+            updateCardContent(currentStep);
+            updateProgressBar(currentStep);
+        }
     };
 </script>
-
 </body>
 </html>
